@@ -28,6 +28,16 @@ Este repositorio es la **plantilla de inicio** para los proyectos transversales.
 5. **Empieza a implementar** en la carpeta correcta — no tires todo en la raíz.
 6. **Documenta** lo que añadas: cada app, servicio, agente o pipeline nuevo lleva subcarpeta + README.
 
+## Vista local rápida (npx)
+
+Para páginas estáticas como `index.html` y `application.html`, ejecuta:
+
+```bash
+npx --yes serve . -l 3000
+```
+
+Luego abre la URL local mostrada en terminal (normalmente `http://localhost:3000`). En Codespaces, usa el puerto reenviado `3000`.
+
 ---
 
 ## Cómo entender este monorepo

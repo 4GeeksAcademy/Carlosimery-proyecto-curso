@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Tracflow | Transporte y Logistica</title>
+		<script type="application/ld+json">
+			{
+				"@context": "https://schema.org",
+				"@type": "Organization",
+				"name": "Trackflow",
+				"url": "https://trackflow.example",
+				"logo": "./img.png/4bc01043-049b-4365-a95b-4aa037cb81ad-removebg-preview.png",
+				"email": "contacto@trackflow.com",
+				"contactPoint": [
+					{
+						"@type": "ContactPoint",
+						"contactType": "customer support",
+						"telephone": "+1-809-555-0147",
+						"areaServed": ["US", "ES"],
+						"availableLanguage": ["es", "en"]
+					}
+				]
+			}
+		</script>
+		<script src="https://cdn.tailwindcss.com"></script>
+	</head>
+	<body class="min-h-screen bg-white text-slate-900">
+		<header class="border-b border-slate-200 bg-white">
+			<div class="mx-auto flex h-28 w-full max-w-7xl items-center justify-between px-6 md:h-32 md:px-10">
+				<a href="#inicio" class="flex items-center gap-3">
+					<img
+						src="./img.png/4bc01043-049b-4365-a95b-4aa037cb81ad-removebg-preview.png"
+						alt="Logo Trackflow"
+						class="h-20 w-auto object-contain md:h-24"
+					/>
+					<span class="bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-3xl font-black uppercase tracking-[0.18em] text-transparent md:text-4xl [text-shadow:0_1px_0_rgba(15,23,42,0.18)]">Trackflow</span>
+				</a>
+
+				<nav aria-label="Principal" class="text-base font-semibold md:text-lg">
+					<ul class="flex items-center gap-4 lg:gap-5">
+						<li><a class="transition hover:text-cyan-600" href="#inicio">Inicio</a></li>
+						<li class="text-slate-400">|</li>
+						<li><a class="transition hover:text-cyan-600" href="#servicios">Servicios</a></li>
+						<li class="text-slate-400">|</li>
+						<li><a class="transition hover:text-cyan-600" href="#cobertura">Cobertura</a></li>
+						<li class="text-slate-400">|</li>
+						<li><a class="transition hover:text-cyan-600" href="#contacto">Contacto</a></li>
+					</ul>
+				</nav>
+
+				<div class="flex items-center gap-3">
+					<a
+						href="./application.html"
+						class="rounded-xl border border-slate-300 px-4 py-2 text-sm font-semibold text-slate-800 transition hover:bg-slate-50 md:px-5 md:text-base"
+						>Registrate</a
+					>
+					<a
+						href="#"
+						class="rounded-xl bg-cyan-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-cyan-500 md:px-5 md:text-base"
+						>Iniciar sesion</a
+					>
+				</div>
+			</div>
+		</header>
+
+		<main id="inicio" class="mx-auto w-full max-w-7xl px-6 pb-24 pt-14 text-center md:px-10 md:pt-20">
+			<h1 class="text-5xl font-semibold tracking-tight text-slate-900 md:text-8xl">
+				Llegamos a tu
+				<span class="bg-gradient-to-r from-cyan-500 via-blue-500 to-violet-500 bg-clip-text text-transparent">Destino</span>
+			</h1>
+			<p class="mx-auto mt-6 max-w-3xl text-xl text-slate-600 md:text-4xl/relaxed">
+				Soluciones de transporte y logistica para mover tu negocio sin friccion.
+			</p>
+
+			<section id="servicios" class="mt-24 rounded-3xl border border-slate-200 bg-slate-50 p-8 text-left md:p-12">
+				<p class="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">Caracteristicas y beneficios</p>
+				<h2 class="mt-3 text-3xl font-semibold text-slate-900 md:text-5xl">Tecnologia logistica pensada para la experiencia del cliente</h2>
+				<p class="mt-4 max-w-3xl text-lg text-slate-600 md:text-2xl/relaxed">
+					Trackflow integra rastreo en tiempo real, gestion de rutas y soporte operativo para ofrecer entregas mas rapidas, visibilidad total y una experiencia confiable de punta a punta.
+				</p>
+				<div class="mt-8 grid gap-4 md:grid-cols-3">
+					<article class="rounded-2xl border border-slate-200 bg-white p-5">
+						<h3 class="text-lg font-semibold text-slate-900">Caracteristicas clave</h3>
+						<p class="mt-2 text-slate-600">Panel de control en vivo, alertas automaticas y trazabilidad por envio para tomar decisiones con datos reales.</p>
+					</article>
+					<article class="rounded-2xl border border-slate-200 bg-white p-5">
+						<h3 class="text-lg font-semibold text-slate-900">Beneficios para tu negocio</h3>
+						<p class="mt-2 text-slate-600">Menos tiempos muertos, reduccion de costos operativos y mayor cumplimiento en ventanas de entrega.</p>
+					</article>
+					<article class="rounded-2xl border border-slate-200 bg-white p-5">
+						<h3 class="text-lg font-semibold text-slate-900">Experiencia del cliente</h3>
+						<p class="mt-2 text-slate-600">Comunicacion proactiva, seguimiento claro y entregas puntuales que elevan la satisfaccion final.</p>
+					</article>
+				</div>
+			</section>
+
+			<section id="cobertura" class="mt-12 rounded-3xl border border-slate-200 bg-white p-8 text-left md:p-12">
+				<p class="text-sm font-semibold uppercase tracking-[0.18em] text-cyan-700">Como funciona</p>
+				<h2 class="mt-3 text-3xl font-semibold text-slate-900 md:text-5xl">Un proceso simple en 4 pasos</h2>
+				<div class="mt-8 grid gap-4 md:grid-cols-2">
+					<article class="rounded-2xl border border-slate-200 p-5">
+						<p class="text-sm font-semibold text-cyan-700">01. Planificacion</p>
+						<p class="mt-2 text-slate-600">Definimos rutas, tiempos y tipo de servicio segun tus necesidades de carga y destino.</p>
+					</article>
+					<article class="rounded-2xl border border-slate-200 p-5">
+						<p class="text-sm font-semibold text-cyan-700">02. Asignacion inteligente</p>
+						<p class="mt-2 text-slate-600">Asignamos flota y operadores con base en disponibilidad, prioridad y eficiencia operacional.</p>
+					</article>
+					<article class="rounded-2xl border border-slate-200 p-5">
+						<p class="text-sm font-semibold text-cyan-700">03. Seguimiento en tiempo real</p>
+						<p class="mt-2 text-slate-600">Monitoreas cada envio con actualizaciones constantes y notificaciones de estado.</p>
+					</article>
+					<article class="rounded-2xl border border-slate-200 p-5">
+						<p class="text-sm font-semibold text-cyan-700">04. Entrega y mejora continua</p>
+						<p class="mt-2 text-slate-600">Cerramos la entrega con confirmacion digital y reportes para optimizar futuras operaciones.</p>
+					</article>
+				</div>
+			</section>
+
+			<section id="contacto" class="h-20"></section>
+		</main>
+
+		<footer class="border-t border-slate-200 bg-slate-900 text-slate-200">
+			<div class="mx-auto grid w-full max-w-7xl gap-8 px-6 py-12 md:grid-cols-3 md:px-10">
+				<div>
+					<h3 class="text-xl font-semibold text-white">Trackflow</h3>
+					<p class="mt-3 text-sm leading-relaxed text-slate-300">
+						Soluciones de transporte y logistica para empresas que necesitan puntualidad,
+						trazabilidad y control total en cada entrega.
+					</p>
+				</div>
+
+				<div>
+					<h4 class="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">Contacto</h4>
+					<ul class="mt-3 space-y-2 text-sm text-slate-300">
+						<li>Correo: contacto@trackflow.com</li>
+						<li>Telefono: +1 (809) 555-0147</li>
+						<li>Direccion: Av. Logistica 245, Santo Domingo</li>
+					</ul>
+				</div>
+
+				<div>
+					<h4 class="text-sm font-semibold uppercase tracking-[0.16em] text-cyan-300">Atencion</h4>
+					<ul class="mt-3 space-y-2 text-sm text-slate-300">
+						<li>Lunes a Viernes: 8:00 AM - 7:00 PM</li>
+						<li>Sabados: 9:00 AM - 2:00 PM</li>
+						<li>Soporte operativo 24/7</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="border-t border-slate-800 px-6 py-4 text-center text-xs text-slate-400 md:px-10">
+				© 2026 Trackflow. Todos los derechos reservados.
+			</div>
+		</footer>
+	</body>
+</html>

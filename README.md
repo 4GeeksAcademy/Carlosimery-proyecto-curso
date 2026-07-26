@@ -28,6 +28,16 @@ This repository is the **starter template** for transversal projects. You will w
 5. **Start implementing** in the right folder — do not dump everything in the root.
 6. **Document** what you add: each new app, service, agent, or pipeline gets a subfolder + README.
 
+## Quick local preview (npx)
+
+For static pages like `index.html` and `application.html`, run:
+
+```bash
+npx --yes serve . -l 3000
+```
+
+Then open the local URL shown in terminal (usually `http://localhost:3000`). In Codespaces, use the forwarded port `3000`.
+
 ---
 
 ## How to think about this monorepo
