@@ -28,15 +28,22 @@ Este repositorio es la **plantilla de inicio** para los proyectos transversales.
 5. **Empieza a implementar** en la carpeta correcta — no tires todo en la raíz.
 6. **Documenta** lo que añadas: cada app, servicio, agente o pipeline nuevo lleva subcarpeta + README.
 
-## Vista local rápida (npx)
+## Vista local rápida
 
-Para páginas estáticas como `index.html` y `application.html`, ejecuta:
+Usa los scripts del proyecto definidos en `package.json`:
 
 ```bash
-npx --yes serve . -l 3000
+npm install
+npm run dev
 ```
 
-Luego abre la URL local mostrada en terminal (normalmente `http://localhost:3000`). En Codespaces, usa el puerto reenviado `3000`.
+Luego abre `http://localhost:3000` (o el puerto reenviado `3000` en Codespaces).
+
+Por qué funciona:
+
+- `npm install` instala la dependencia local `serve` usada por los scripts.
+- `npm run dev` ejecuta el script `dev` (`serve . -l 3000`) para servir `index.html` y `application.html`.
+- `npx run` falla porque `run` no es un comando ejecutable de paquete en este proyecto.
 
 ---
 

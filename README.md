@@ -28,15 +28,22 @@ This repository is the **starter template** for transversal projects. You will w
 5. **Start implementing** in the right folder — do not dump everything in the root.
 6. **Document** what you add: each new app, service, agent, or pipeline gets a subfolder + README.
 
-## Quick local preview (npx)
+## Quick local preview
 
-For static pages like `index.html` and `application.html`, run:
+Use the project scripts defined in `package.json`:
 
 ```bash
-npx --yes serve . -l 3000
+npm install
+npm run dev
 ```
 
-Then open the local URL shown in terminal (usually `http://localhost:3000`). In Codespaces, use the forwarded port `3000`.
+Then open `http://localhost:3000` (or the forwarded `3000` port in Codespaces).
+
+Why this works:
+
+- `npm install` installs the local dependency `serve` used by the scripts.
+- `npm run dev` executes the `dev` script (`serve . -l 3000`) to host `index.html` and `application.html`.
+- `npx run` fails because `run` is not an executable package command in this project.
 
 ---
 
