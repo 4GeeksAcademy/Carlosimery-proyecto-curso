@@ -4,10 +4,17 @@
   "private": true,
   "description": "Landing y formulario de Trackflow",
   "scripts": {
-    "dev": "serve . -l 3000",
-    "start": "serve . -l 3000"
+    "build:demo": "esbuild src/demo.ts --bundle --format=esm --outfile=dist/demo.js",
+    "dev": "npm run build:demo && serve . -l 3000",
+    "start": "npm run build:demo && serve . -l 3000",
+    "test": "tsx --test src/**/*.test.ts",
+    "typecheck": "tsc --noEmit"
   },
   "devDependencies": {
-    "serve": "^14.2.4"
+    "@types/node": "^24.5.2",
+    "esbuild": "^0.25.10",
+    "serve": "^14.2.4",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
   }
 }

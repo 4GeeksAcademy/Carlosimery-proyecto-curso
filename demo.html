@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Trackflow | Laboratorio de datos</title>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+		<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+		<script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
+		<script type="module" src="./dist/demo.js"></script>
+		<style>
+			body { font-family: "Manrope", sans-serif; }
+			.control:focus { outline: 2px solid #67e8f9; outline-offset: 1px; border-color: #0891b2; }
+		</style>
+	</head>
+	<body class="min-h-screen bg-slate-50 text-slate-900">
+		<header class="border-b border-slate-200 bg-white">
+			<div class="mx-auto flex min-h-24 w-full max-w-7xl flex-wrap items-center justify-between gap-4 px-6 py-3 md:px-10">
+				<a href="./index.html" class="flex items-center gap-3">
+					<img src="./img.png/4bc01043-049b-4365-a95b-4aa037cb81ad-removebg-preview.png" alt="Logo Trackflow" class="h-16 w-auto object-contain md:h-20" />
+					<span class="text-2xl font-extrabold uppercase text-slate-900">Trackflow</span>
+				</a>
+				<div class="flex items-center gap-3">
+					<span class="hidden items-center gap-2 text-sm font-semibold text-emerald-700 sm:flex">
+						<span class="h-2 w-2 rounded-full bg-emerald-500"></span>Datos locales
+					</span>
+					<a href="./index.html" class="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold transition hover:bg-slate-100">
+						<i data-lucide="arrow-left" class="h-4 w-4" aria-hidden="true"></i>Inicio
+					</a>
+				</div>
+			</div>
+		</header>
+
+		<main class="mx-auto w-full max-w-7xl px-6 py-8 md:px-10 md:py-12">
+			<div class="flex flex-wrap items-end justify-between gap-5 border-b border-slate-300 pb-7">
+				<div>
+					<p class="text-sm font-bold uppercase text-cyan-700">TrackFlow Tech</p>
+					<h1 class="mt-2 text-3xl font-extrabold text-slate-950 md:text-4xl">Laboratorio de operaciones</h1>
+				</div>
+				<div class="grid grid-cols-3 divide-x divide-slate-300 text-center">
+					<div class="px-4"><strong id="inventoryCount" class="block text-2xl">0</strong><span class="text-xs text-slate-500">SKU</span></div>
+					<div class="px-4"><strong id="shipmentCount" class="block text-2xl">0</strong><span class="text-xs text-slate-500">Envios</span></div>
+					<div class="px-4"><strong id="returnCount" class="block text-2xl">0</strong><span class="text-xs text-slate-500">Devoluciones</span></div>
+				</div>
+			</div>
+
+			<div class="mt-8 grid gap-8 lg:grid-cols-[22rem_minmax(0,1fr)]">
+				<aside class="space-y-4" aria-label="Controles de operaciones">
+					<section class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+						<div class="flex items-center gap-3"><i data-lucide="list-filter" class="h-5 w-5 text-cyan-700"></i><h2 class="font-bold">Filtrar inventario</h2></div>
+						<div class="mt-4 grid grid-cols-2 gap-3">
+							<label class="col-span-2 text-sm font-semibold">Almacen
+								<select id="warehouseFilter" class="control mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-normal">
+									<option value="">Todos</option><option value="warehouse-zgz">Zaragoza</option><option value="warehouse-lax">Los Angeles</option>
+								</select>
+							</label>
+							<label class="text-sm font-semibold">Cantidad maxima<input id="maximumQuantity" type="number" min="0" placeholder="Sin limite" class="control mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 font-normal" /></label>
+							<label class="flex items-end gap-2 pb-2 text-sm font-semibold"><input id="lowStockOnly" type="checkbox" class="h-4 w-4 accent-cyan-600" />Stock bajo</label>
+						</div>
+						<button id="filterButton" type="button" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-cyan-600 px-4 py-2.5 text-sm font-bold text-white hover:bg-cyan-500"><i data-lucide="filter" class="h-4 w-4"></i>Filtrar</button>
+					</section>
+
+					<section class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+						<div class="flex items-center gap-3"><i data-lucide="search" class="h-5 w-5 text-cyan-700"></i><h2 class="font-bold">Buscar SKU</h2></div>
+						<label class="mt-4 block text-sm font-semibold">SKU<input id="skuSearch" type="text" value="TF-LABEL-040" class="control mt-1 w-full rounded-lg border border-slate-300 px-3 py-2 font-normal uppercase" /></label>
+						<div class="mt-3 grid grid-cols-2 gap-2">
+							<button id="linearSearchButton" type="button" class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold hover:bg-slate-100">Lineal</button>
+							<button id="binarySearchButton" type="button" class="rounded-lg border border-slate-300 px-3 py-2 text-sm font-bold hover:bg-slate-100">Binaria</button>
+						</div>
+					</section>
+
+					<section class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+						<div class="flex items-center gap-3"><i data-lucide="arrow-up-down" class="h-5 w-5 text-cyan-700"></i><h2 class="font-bold">Ordenar envios</h2></div>
+						<div class="mt-4 grid grid-cols-2 gap-3">
+							<label class="text-sm font-semibold">Campo<select id="sortField" class="control mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-normal"><option value="shippingCost">Coste</option><option value="weightKg">Peso</option><option value="createdAt">Fecha</option></select></label>
+							<label class="text-sm font-semibold">Direccion<select id="sortDirection" class="control mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-normal"><option value="ascending">Ascendente</option><option value="descending">Descendente</option></select></label>
+						</div>
+						<button id="sortButton" type="button" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-bold text-white hover:bg-slate-700"><i data-lucide="rows-3" class="h-4 w-4"></i>Ordenar</button>
+					</section>
+
+					<section class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+						<div class="flex items-center gap-3"><i data-lucide="chart-no-axes-combined" class="h-5 w-5 text-cyan-700"></i><h2 class="font-bold">Generar reporte</h2></div>
+						<label class="mt-4 block text-sm font-semibold">Reporte<select id="reportType" class="control mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-normal"><option value="operations">Operacion global</option><option value="inventory">Inventario</option></select></label>
+						<button id="reportButton" type="button" class="mt-4 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-bold text-white hover:bg-slate-700"><i data-lucide="bar-chart-3" class="h-4 w-4"></i>Generar</button>
+					</section>
+				</aside>
+
+				<section aria-live="polite" aria-atomic="true">
+					<div class="flex flex-wrap items-center justify-between gap-3">
+						<div><p id="resultEyebrow" class="text-xs font-bold uppercase text-cyan-700">Vista inicial</p><h2 id="resultTitle" class="mt-1 text-2xl font-extrabold">Inventario consolidado</h2></div>
+					<span id="resultCount" class="rounded-full bg-cyan-50 px-3 py-1 text-sm font-bold text-cyan-800">0 resultados</span>
+					</div>
+					<div id="resultContent" class="mt-5 overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm"></div>
+				</section>
+			</div>
+		</main>
+	</body>
+</html>

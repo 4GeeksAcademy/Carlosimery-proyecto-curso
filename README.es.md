@@ -39,10 +39,34 @@ npm run dev
 
 Luego abre `http://localhost:3000` (o el puerto reenviado `3000` en Codespaces).
 
+La página para probar manualmente las funciones TypeScript está disponible en:
+
+```text
+http://localhost:3000/demo.html
+```
+
+`npm run dev` genera primero `dist/demo.js` desde `src/demo.ts` y después sirve el proyecto. También puedes generar solo el bundle con `npm run build:demo`.
+
+## Validar el código TypeScript
+
+Durante el desarrollo, comprueba los tipos sin generar archivos compilados:
+
+```bash
+npm run typecheck
+```
+
+Para ejecutar también las pruebas automatizadas de las utilidades:
+
+```bash
+npm test
+```
+
 Por qué funciona:
 
 - `npm install` instala la dependencia local `serve` usada por los scripts.
-- `npm run dev` ejecuta el script `dev` (`serve . -l 3000`) para servir `index.html` y `application.html`.
+- `npm run dev` compila el laboratorio TypeScript y ejecuta `serve . -l 3000` para servir las páginas HTML.
+- `npm run typecheck` ejecuta `tsc --noEmit` con la configuración estricta de `tsconfig.json`.
+- `npm test` ejecuta las pruebas TypeScript de `src/` mediante `tsx`.
 - `npx run` falla porque `run` no es un comando ejecutable de paquete en este proyecto.
 
 ---
