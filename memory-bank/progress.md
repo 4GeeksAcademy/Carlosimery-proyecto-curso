@@ -12,6 +12,7 @@
 - [x] `AGENTS.md` en la raíz con reglas para agentes de IA
 - [x] Carpeta `.agents/rules/` con 3 reglas de desarrollo documentadas
 - [x] Skill de carrier-performance con script Python y criterios de aceptación
+- [x] Definición del skill `carrier-performance` reubicada a `.agents/skills/carrier-performance/SKILL.md` (configuración del agente); el script de producto permanece en `skills/carrier-performance/`
 - [x] Mapa de carpetas de producto documentado en `techContext.md` y `AGENTS.md` (frontend → `uis/website/` y `uis/backoffice/`; backend → `services/`)
 
 ### 🔄 En progreso

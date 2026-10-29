@@ -7,11 +7,24 @@ Este directorio contiene las reglas y configuraciones que los agentes de IA debe
 ```
 .agents/
 ├── README.md              ← Este archivo
-└── rules/
-    ├── memory-bank-sync.md          ← Siempre activa
-    ├── never-touch-legacy.md        ← Por patrón de archivo
-    └── carrier-selection-rules.md   ← Solicitada por el agente
+├── rules/
+│   ├── memory-bank-sync.md          ← Siempre activa
+│   ├── never-touch-legacy.md        ← Por patrón de archivo
+│   └── carrier-selection-rules.md   ← Solicitada por el agente
+└── skills/
+    └── carrier-performance/
+        └── SKILL.md                 ← Definición del skill (configuración)
 ```
+
+## Skills
+
+Las **definiciones de skills** (documentos `SKILL.md`) viven en `.agents/skills/<nombre>/`
+porque son configuración del agente, no código de producto. La **implementación**
+(scripts ejecutables) permanece en `skills/<nombre>/` como código de producto.
+
+| Skill | Definición | Implementación |
+|-------|-----------|----------------|
+| `carrier-performance` | `.agents/skills/carrier-performance/SKILL.md` | `skills/carrier-performance/carrier_performance.py` |
 
 ## Alcances de reglas
 

@@ -11,7 +11,7 @@ de un CSV de envíos y genera:
 Uso:
     python carrier_performance.py --input shipments.csv --output ./output/
 
-Referencia: skills/carrier-performance/SKILL.md
+Referencia: .agents/skills/carrier-performance/SKILL.md
 """
 
 import argparse

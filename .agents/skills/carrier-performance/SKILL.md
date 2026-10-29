@@ -151,4 +151,5 @@ El skill se considera exitoso si y solo si se cumplen **todos** los siguientes c
 - **Briefing**: Sección "📦 Last mile and carrier management" — Carlos Vega necesita datos históricos de rendimiento.
 - **Regla**: `.agents/rules/carrier-selection-rules.md` — las métricas generadas por este skill alimentan las reglas de selección.
 - **Stack**: Python con pandas (según `techContext.md`).
+- **Implementación (script de producto)**: `skills/carrier-performance/carrier_performance.py` — ejecuta el proceso descrito en este documento.
 - **Skill relacionada**: `skills/data-analysis/` — comparte utilidades de limpieza con pandas.
