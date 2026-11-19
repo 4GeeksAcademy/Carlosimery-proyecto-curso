@@ -38,6 +38,59 @@ Daniel ha creado una unidad interna llamada **TrackFlow Tech** con un mandato cl
 
 **Tú formas parte de esa unidad.**
 
+## Contrato de datos canónico
+
+El siguiente contrato TypeScript es la fuente de verdad para los datos operativos principales de TrackFlow. Los nombres de propiedades y valores distinguen mayúsculas y minúsculas.
+
+### Tipos compartidos
+
+- `Identifier = string`
+- `CountryCode = "ES" | "US"`
+- `WarehouseCity = "Los Angeles" | "Zaragoza"`
+- `LanguageCode = "es" | "en"`
+- `ShipmentPriority = "standard" | "express"`
+- `ShipmentStatus = "pending" | "in_transit" | "delivered" | "cancelled"`
+- `OrderStatus = "received" | "picking" | "packed" | "dispatched" | "cancelled"`
+- `IncidentType = "lost_package" | "failed_delivery" | "incorrect_address"`
+- `IncidentStatus = "open" | "investigating" | "resolved"`
+- `ReturnStatus = "pending" | "approved" | "rejected" | "collected" | "inspected" | "completed"`
+- `ProductCondition = "new" | "refurbishable" | "damaged" | "discard"`
+- `ReturnResolution = "restock" | "refurbish" | "discard"`
+- `CustomerType = "brand" | "consumer"`
+- `TicketChannel = "email" | "whatsapp" | "phone"`
+- `TicketStatus = "open" | "in_progress" | "resolved"`
+
+### Entidades principales y campos exactos
+
+| Entidad | Campos obligatorios | Campos opcionales |
+| --- | --- | --- |
+| `Address` | `street: string`, `city: string`, `postalCode: string`, `country: CountryCode` | Ninguno |
+| `Warehouse` | `id: Identifier`, `name: string`, `country: CountryCode`, `city: WarehouseCity`, `timeZone: string`, `active: boolean` | Ninguno |
+| `InventoryItem` | `id: Identifier`, `sku: string`, `name: string`, `category: string`, `warehouseId: Identifier`, `quantity: number`, `minimumStock: number`, `unitWeightKg: number`, `unitValue: number`, `updatedAt: Date` | Ninguno |
+| `Customer` | `id: Identifier`, `type: CustomerType`, `name: string`, `email: string`, `country: CountryCode`, `preferredLanguage: LanguageCode`, `active: boolean` | Ninguno |
+| `CustomerContract` | `id: Identifier`, `customerId: Identifier`, `startsAt: Date`, `endsAt: Date`, `annualValue: number`, `renewalRiskScore: number`, `active: boolean` | Ninguno |
+| `OrderLine` | `sku: string`, `quantity: number`, `unitWeightKg: number` | Ninguno |
+| `Order` | `id: Identifier`, `customerId: Identifier`, `warehouseId: Identifier`, `sourceEmail: string`, `destination: Address`, `lines: OrderLine[]`, `priority: ShipmentPriority`, `status: OrderStatus`, `createdAt: Date` | Ninguno |
+| `Carrier` | `id: Identifier`, `name: string`, `countries: CountryCode[]`, `costPerKg: number`, `onTimeDeliveryRate: number`, `active: boolean` | Ninguno |
+| `Shipment` | `id: Identifier`, `trackingNumber: string`, `warehouseId: Identifier`, `carrierId: Identifier`, `destinationCountry: CountryCode`, `weightKg: number`, `shippingCost: number`, `priority: ShipmentPriority`, `status: ShipmentStatus`, `createdAt: Date`, `estimatedDeliveryAt: Date` | `deliveredAt: Date` |
+| `DeliveryIncident` | `id: Identifier`, `shipmentId: Identifier`, `type: IncidentType`, `status: IncidentStatus`, `route: string`, `description: string`, `reportedAt: Date` | `resolvedAt: Date` |
+| `ReturnRequest` | `id: Identifier`, `shipmentId: Identifier`, `customerId: Identifier`, `productSku: string`, `country: CountryCode`, `reason: string`, `status: ReturnStatus`, `requestedAt: Date` | `decidedAt: Date`, `condition: ProductCondition`, `resolution: ReturnResolution` |
+| `SupportTicket` | `id: Identifier`, `customerId: Identifier`, `customerType: CustomerType`, `channel: TicketChannel`, `language: LanguageCode`, `subject: string`, `status: TicketStatus`, `sentimentScore: number`, `createdAt: Date` | `resolvedAt: Date` |
+| `CarrierPerformance` | `carrierId: Identifier`, `country: CountryCode`, `route: string`, `shipmentCount: number`, `onTimeDeliveryRate: number`, `incidentCount: number`, `totalCost: number`, `totalWeightKg: number`, `periodStart: Date`, `periodEnd: Date` | Ninguno |
+
+### Reglas de validación de negocio
+
+- Los campos de texto obligatorios no pueden estar vacíos y los campos de email deben tener un formato válido.
+- Los almacenes están limitados a Los Angeles (`US`) y Zaragoza (`ES`), conservando la combinación correcta de ciudad y país.
+- Las cantidades de inventario, el stock mínimo, el número de envíos y el número de incidencias son enteros no negativos. Las cantidades de líneas de pedido son enteros positivos.
+- Los pesos deben ser positivos. Los valores monetarios y el coste por kg del transportista deben ser no negativos.
+- Las tasas de entrega a tiempo, las puntuaciones de riesgo de renovación y las demás tasas usan el rango inclusivo de `0` a `1`. El sentimiento de tickets usa el rango inclusivo de `-1` a `1`.
+- Cada pedido contiene un destino y al menos una línea de producto.
+- Las fechas de entrega estimada, entrega real, resolución de incidencia, decisión de devolución, resolución de ticket y fin del periodo de rendimiento no pueden ser anteriores a su fecha inicial correspondiente.
+- Un envío entregado requiere `deliveredAt`; una incidencia o ticket resuelto requiere `resolvedAt`.
+- Los contratos de clientes son anuales: su duración debe estar entre 364 y 366 días.
+- Las devoluciones aprobadas, rechazadas, recogidas, inspeccionadas o completadas requieren `decidedAt`. Las devoluciones inspeccionadas y completadas requieren `condition`; las completadas también requieren `resolution`.
+
 ---
 
 ## Los departamentos y sus problemas

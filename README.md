@@ -39,10 +39,34 @@ npm run dev
 
 Then open `http://localhost:3000` (or the forwarded `3000` port in Codespaces).
 
+The page for manually testing the TypeScript utilities is available at:
+
+```text
+http://localhost:3000/demo.html
+```
+
+`npm run dev` first builds `dist/demo.js` from `src/demo.ts` and then serves the project. You can also generate only the bundle with `npm run build:demo`.
+
+## Validate the TypeScript code
+
+During development, check all types without emitting compiled files:
+
+```bash
+npm run typecheck
+```
+
+To also run the automated utility tests:
+
+```bash
+npm test
+```
+
 Why this works:
 
 - `npm install` installs the local dependency `serve` used by the scripts.
-- `npm run dev` executes the `dev` script (`serve . -l 3000`) to host `index.html` and `application.html`.
+- `npm run dev` builds the TypeScript lab and runs `serve . -l 3000` to host the HTML pages.
+- `npm run typecheck` runs `tsc --noEmit` with the strict settings from `tsconfig.json`.
+- `npm test` runs the TypeScript tests under `src/` through `tsx`.
 - `npx run` fails because `run` is not an executable package command in this project.
 
 ---

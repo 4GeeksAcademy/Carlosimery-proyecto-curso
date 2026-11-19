@@ -38,6 +38,59 @@ Daniel has created an internal unit called **TrackFlow Tech** with a clear manda
 
 **You are part of that unit.**
 
+## Canonical data contract
+
+The following TypeScript contract is the source of truth for TrackFlow's core operational data. Property names and values are case-sensitive.
+
+### Shared types
+
+- `Identifier = string`
+- `CountryCode = "ES" | "US"`
+- `WarehouseCity = "Los Angeles" | "Zaragoza"`
+- `LanguageCode = "es" | "en"`
+- `ShipmentPriority = "standard" | "express"`
+- `ShipmentStatus = "pending" | "in_transit" | "delivered" | "cancelled"`
+- `OrderStatus = "received" | "picking" | "packed" | "dispatched" | "cancelled"`
+- `IncidentType = "lost_package" | "failed_delivery" | "incorrect_address"`
+- `IncidentStatus = "open" | "investigating" | "resolved"`
+- `ReturnStatus = "pending" | "approved" | "rejected" | "collected" | "inspected" | "completed"`
+- `ProductCondition = "new" | "refurbishable" | "damaged" | "discard"`
+- `ReturnResolution = "restock" | "refurbish" | "discard"`
+- `CustomerType = "brand" | "consumer"`
+- `TicketChannel = "email" | "whatsapp" | "phone"`
+- `TicketStatus = "open" | "in_progress" | "resolved"`
+
+### Main entities and exact fields
+
+| Entity | Required fields | Optional fields |
+| --- | --- | --- |
+| `Address` | `street: string`, `city: string`, `postalCode: string`, `country: CountryCode` | None |
+| `Warehouse` | `id: Identifier`, `name: string`, `country: CountryCode`, `city: WarehouseCity`, `timeZone: string`, `active: boolean` | None |
+| `InventoryItem` | `id: Identifier`, `sku: string`, `name: string`, `category: string`, `warehouseId: Identifier`, `quantity: number`, `minimumStock: number`, `unitWeightKg: number`, `unitValue: number`, `updatedAt: Date` | None |
+| `Customer` | `id: Identifier`, `type: CustomerType`, `name: string`, `email: string`, `country: CountryCode`, `preferredLanguage: LanguageCode`, `active: boolean` | None |
+| `CustomerContract` | `id: Identifier`, `customerId: Identifier`, `startsAt: Date`, `endsAt: Date`, `annualValue: number`, `renewalRiskScore: number`, `active: boolean` | None |
+| `OrderLine` | `sku: string`, `quantity: number`, `unitWeightKg: number` | None |
+| `Order` | `id: Identifier`, `customerId: Identifier`, `warehouseId: Identifier`, `sourceEmail: string`, `destination: Address`, `lines: OrderLine[]`, `priority: ShipmentPriority`, `status: OrderStatus`, `createdAt: Date` | None |
+| `Carrier` | `id: Identifier`, `name: string`, `countries: CountryCode[]`, `costPerKg: number`, `onTimeDeliveryRate: number`, `active: boolean` | None |
+| `Shipment` | `id: Identifier`, `trackingNumber: string`, `warehouseId: Identifier`, `carrierId: Identifier`, `destinationCountry: CountryCode`, `weightKg: number`, `shippingCost: number`, `priority: ShipmentPriority`, `status: ShipmentStatus`, `createdAt: Date`, `estimatedDeliveryAt: Date` | `deliveredAt: Date` |
+| `DeliveryIncident` | `id: Identifier`, `shipmentId: Identifier`, `type: IncidentType`, `status: IncidentStatus`, `route: string`, `description: string`, `reportedAt: Date` | `resolvedAt: Date` |
+| `ReturnRequest` | `id: Identifier`, `shipmentId: Identifier`, `customerId: Identifier`, `productSku: string`, `country: CountryCode`, `reason: string`, `status: ReturnStatus`, `requestedAt: Date` | `decidedAt: Date`, `condition: ProductCondition`, `resolution: ReturnResolution` |
+| `SupportTicket` | `id: Identifier`, `customerId: Identifier`, `customerType: CustomerType`, `channel: TicketChannel`, `language: LanguageCode`, `subject: string`, `status: TicketStatus`, `sentimentScore: number`, `createdAt: Date` | `resolvedAt: Date` |
+| `CarrierPerformance` | `carrierId: Identifier`, `country: CountryCode`, `route: string`, `shipmentCount: number`, `onTimeDeliveryRate: number`, `incidentCount: number`, `totalCost: number`, `totalWeightKg: number`, `periodStart: Date`, `periodEnd: Date` | None |
+
+### Business validation rules
+
+- Required text fields cannot be empty and email fields must have a valid email format.
+- Warehouses are limited to Los Angeles (`US`) and Zaragoza (`ES`), with the city-country combination preserved.
+- Inventory quantities, minimum stock, shipment counts, and incident counts are non-negative integers. Order-line quantities are positive integers.
+- Weights must be positive. Monetary values and carrier cost per kg must be non-negative.
+- On-time delivery rates, renewal risk scores, and other rates use the inclusive range from `0` to `1`. Ticket sentiment uses the inclusive range from `-1` to `1`.
+- Every order contains a destination and at least one product line.
+- Estimated delivery, actual delivery, incident resolution, return decision, ticket resolution, and performance-period end dates cannot precede their corresponding start date.
+- A delivered shipment requires `deliveredAt`; a resolved incident or ticket requires `resolvedAt`.
+- Client contracts are annual: their duration must be between 364 and 366 days.
+- Approved, rejected, collected, inspected, or completed returns require `decidedAt`. Inspected and completed returns require `condition`; completed returns also require `resolution`.
+
 ---
 
 ## Departments and their problems
